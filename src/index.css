@@ -4,85 +4,85 @@
 
 @layer base {
   :root {
-    /* Light Mode Theme - Blue & Gray Professional */
-    --background: 220 20% 98%; /* Very Light Gray-Blue */
-    --foreground: 225 15% 25%; /* Dark Slate Blue */
+    /* Light Mode - KodeKloud Inspired Blue Theme */
+    --background: 210 40% 98%; /* Very Light Blue-Gray */
+    --foreground: 210 25% 25%; /* Dark Slate Blue */
 
     --card: 0 0% 100%; /* White */
-    --card-foreground: 225 15% 25%; /* Dark Slate Blue */
+    --card-foreground: 210 25% 25%; /* Dark Slate Blue */
  
     --popover: 0 0% 100%; /* White */
-    --popover-foreground: 225 15% 25%; /* Dark Slate Blue */
+    --popover-foreground: 210 25% 25%; /* Dark Slate Blue */
  
-    --primary: 217 91% 60%; /* Professional Blue (e.g., IBM Blue) */
+    --primary: 220 70% 50%; /* Vibrant Blue (KodeKloud-like) */
     --primary-foreground: 0 0% 100%; /* White */
  
-    --secondary: 215 50% 92%; /* Light Sky Blue */
-    --secondary-foreground: 217 91% 60%; /* Professional Blue */
+    --secondary: 215 30% 88%; /* Light Steel Blue */
+    --secondary-foreground: 220 50% 30%; /* Darker Blue for text on secondary */
  
-    --muted: 220 15% 88%; /* Light Gray */
-    --muted-foreground: 220 10% 45%; /* Medium Gray */
+    --muted: 210 30% 94%; /* Light Grayish Blue */
+    --muted-foreground: 210 20% 50%; /* Medium Slate Gray */
  
-    --accent: 205 90% 65%; /* Brighter, Lighter Blue for accents */
-    --accent-foreground: 225 15% 25%; /* Dark Slate Blue */
+    --accent: 200 80% 55%; /* Bright Sky Blue */
+    --accent-foreground: 210 40% 15%; /* Dark Blue for text on accent */
  
     --destructive: 0 72% 51%; /* Standard Red */
     --destructive-foreground: 0 0% 100%; /* White */
 
-    --border: 220 15% 80%; /* Medium-Light Gray Border */
-    --input: 220 15% 80%; /* Medium-Light Gray Input Border */
-    --ring: 217 91% 70%; /* Lighter Professional Blue for focus rings */
+    --border: 210 20% 85%; /* Light Blue-Gray Border */
+    --input: 210 20% 85%; /* Light Blue-Gray Input Border */
+    --ring: 220 70% 55%; /* Vibrant Blue for focus rings */
  
     --radius: 0.5rem;
 
-    /* Custom brand colors (Shared between themes, primarily for specific elements if needed) */
-    --brand-blue-light: 212 100% 78%; /* Lighter Blue */
-    --brand-blue-default: 217 91% 60%; /* Professional Blue */
-    --brand-blue-dark: 217 91% 50%; /* Darker Professional Blue */
-
-    --brand-gray-light: 220 20% 95%; /* Very Light Gray */
-    --brand-gray-default: 220 10% 50%; /* Medium Gray */
-    --brand-gray-dark: 225 15% 15%; /* Very Dark Blue/Gray (Used for Dark Mode text) */
+    /* Specific KodeKloud-like shades */
+    --kk-blue-dark: 225 45% 25%;
+    --kk-blue-medium: 220 65% 50%;
+    --kk-blue-light: 215 80% 70%;
+    --kk-cyan-accent: 190 70% 55%;
+    --kk-gray-light: 210 30% 96%;
+    --kk-gray-medium: 210 15% 65%;
+    --kk-gray-dark: 210 15% 30%;
   }
  
   .dark {
-    /* Dark Mode Theme - KodeKloud/Azure Inspired Dark Blue */
-    --background: 225 15% 12%; /* Very Dark Blue-Gray */
-    --foreground: 210 30% 95%; /* Light Gray-Blue Text */
+    /* Dark Mode - KodeKloud Inspired Blue Theme */
+    --background: 220 25% 12%; /* Very Dark Blue */
+    --foreground: 210 30% 88%; /* Light Grayish Blue Text */
  
-    --card: 225 15% 18%; /* Darker Card Background */
-    --card-foreground: 210 30% 95%; /* Light Gray-Blue Text for Cards */
+    --card: 220 20% 18%; /* Dark Blue Card Background */
+    --card-foreground: 210 30% 88%; /* Light Text for Cards */
  
-    --popover: 225 15% 15%; /* Dark Popover */
-    --popover-foreground: 210 30% 95%; /* Light Text for Popover */
+    --popover: 220 20% 15%; /* Darker Popover */
+    --popover-foreground: 210 30% 88%; /* Light Text for Popover */
  
-    --primary: 210 100% 65%; /* Bright Blue (Primary Action) */
-    --primary-foreground: 225 15% 15%; /* Dark Text for Primary Button */
+    --primary: 215 70% 60%; /* Brighter Blue for Dark Mode */
+    --primary-foreground: 220 25% 10%; /* Very Dark Blue Text for Primary Button */
  
-    --secondary: 225 15% 25%; /* Slightly Lighter Dark Blue (Secondary Elements) */
-    --secondary-foreground: 210 30% 85%; /* Muted Light Text */
+    --secondary: 220 15% 25%; /* Muted Dark Blue (Secondary Elements) */
+    --secondary-foreground: 210 25% 75%; /* Muted Light Blue Text */
  
-    --muted: 225 15% 22%; /* Dark Muted Background */
-    --muted-foreground: 210 20% 65%; /* Muted Gray Text */
+    --muted: 220 15% 20%; /* Darker Muted Blue Background */
+    --muted-foreground: 210 20% 60%; /* Muted Gray-Blue Text */
  
-    --accent: 200 100% 70%; /* Vibrant Cyan/Blue Accent */
-    --accent-foreground: 225 15% 15%; /* Dark Text for Accent */
+    --accent: 200 85% 65%; /* Brighter Sky Blue Accent */
+    --accent-foreground: 220 25% 10%; /* Dark Text for Accent */
  
     --destructive: 0 65% 55%; /* Brighter Red for Dark Mode */
     --destructive-foreground: 0 0% 100%; /* White */
  
-    --border: 225 15% 30%; /* Dark Border */
-    --input: 225 15% 25%; /* Dark Input Background */
-    --ring: 210 100% 70%; /* Brighter Blue for Focus Ring */
+    --border: 220 15% 30%; /* Dark Blue Border */
+    --input: 220 15% 22%; /* Dark Blue Input Background */
+    --ring: 215 70% 65%; /* Brighter Blue for Focus Ring */
 
-    /* Custom brand colors (Dark theme overrides for consistency) */
-    --brand-blue-light: 210 100% 75%;
-    --brand-blue-default: 210 100% 65%; 
-    --brand-blue-dark: 210 100% 55%;
-
-    --brand-gray-light: 225 15% 20%;
-    --brand-gray-default: 225 15% 40%;
-    --brand-gray-dark: 225 15% 12%; /* Base Dark Background */
+    /* Specific KodeKloud-like shades for Dark Mode */
+    --kk-blue-dark: 220 30% 80%; /* Lighter for dark mode text */
+    --kk-blue-medium: 215 70% 60%; /* Primary action */
+    --kk-blue-light: 210 50% 45%; /* Secondary elements */
+    --kk-cyan-accent: 190 75% 60%; /* Accent */
+    --kk-gray-light: 220 15% 20%; /* Muted backgrounds */
+    --kk-gray-medium: 210 15% 50%; /* Muted text */
+    --kk-gray-dark: 210 20% 80%; /* Lighter text on dark */
   }
 }
  
@@ -92,7 +92,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -103,7 +103,28 @@
   h2 { @apply text-2xl lg:text-3xl; }
   h3 { @apply text-xl lg:text-2xl; }
 
-  /* Ensure links have good contrast and clear interaction states */
+  .page-header-gradient {
+    @apply bg-gradient-to-r from-primary via-[hsl(var(--kk-blue-medium))] to-accent;
+  }
+  .dark .page-header-gradient {
+    @apply bg-gradient-to-r from-primary via-[hsl(var(--kk-blue-medium))] to-accent;
+  }
+
+  .page-header-title {
+    @apply text-2xl sm:text-3xl font-bold text-primary-foreground;
+  }
+  .dark .page-header-title {
+    @apply text-primary-foreground;
+  }
+
+  .page-header-description {
+    @apply text-primary-foreground/80 text-sm sm:text-base;
+  }
+   .dark .page-header-description {
+    @apply text-primary-foreground/80;
+  }
+
+
   a {
     @apply text-primary hover:text-primary/80 transition-colors;
   }
@@ -112,33 +133,30 @@
   }
 }
 
-/* Scrollbar styles for a more modern look */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  /* Light mode track */
-  background-color: hsl(var(--brand-gray-light), 0.3); 
+  background-color: hsl(var(--muted) / 0.3); 
   border-radius: 10px;
 }
 .dark ::-webkit-scrollbar-track {
-  /* Dark mode track */
-  background-color: hsla(var(--brand-gray-default), 0.2);
+  background-color: hsl(var(--muted) / 0.2);
 }
 
 ::-webkit-scrollbar-thumb {
-  /* Light mode thumb: Using a color that fits the blue theme with opacity */
   background-color: hsl(var(--primary) / 0.6); 
   border-radius: 10px;
-  border: 2px solid hsl(var(--background)); /* Creates a nice padding effect */
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 .dark ::-webkit-scrollbar-thumb {
-  /* Dark mode thumb: Using a brighter blue for visibility */
   background-color: hsl(var(--primary) / 0.7);
   border-radius: 10px;
-  border: 2px solid hsl(var(--background)); /* Creates a nice padding effect */
+  border: 2px solid transparent;
+  background-clip: content-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {

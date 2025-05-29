@@ -1,20 +1,32 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Award, BarChart3, CheckCircle, PlusCircle, Upload } from 'lucide-react';
+import { Award, BarChart3, CheckCircle, PlusCircle, Upload, Star, Shield, Gem, Medal, Zap, Lightbulb, FolderKanban, Linkedin, ExternalLink } from 'lucide-react';
+import { useToast } from "@/components/ui/use-toast";
 
-// Mock data - replace with actual data later
+
 const userSkills = [
-  { name: 'JavaScript', level: 80, category: 'Programming Language' },
-  { name: 'React', level: 75, category: 'Frontend Framework' },
-  { name: 'Node.js', level: 60, category: 'Backend Runtime' },
-  { name: 'SQL', level: 50, category: 'Database' },
+  { name: 'JavaScript', level: 80, category: 'Programming Language', points: 200 },
+  { name: 'React', level: 75, category: 'Frontend Framework', points: 180 },
+  { name: 'Node.js', level: 60, category: 'Backend Runtime', points: 150 },
+  { name: 'SQL', level: 50, category: 'Database', points: 120 },
+  { name: 'Python', level: 65, category: 'Programming Language', points: 160 },
 ];
 
-const userProjects = [
-  { name: 'Portfolio Website', status: 'Completed', link: '#', date: '2024-03-15' },
-  { name: 'Todo App with React', status: 'In Progress', link: '#', date: '2024-04-20' },
+const suggestedProjects = [
+  { id: 'proj1', title: 'Interactive Quiz App', description: 'Build a quiz application with multiple choice questions and scoring.', difficulty: 'Medium', skills: ['JavaScript', 'React', 'State Management'] },
+  { id: 'proj2', title: 'Weather Dashboard', description: 'Create a dashboard that fetches and displays weather data from an API.', difficulty: 'Easy', skills: ['JavaScript', 'API Integration', 'HTML/CSS'] },
+  { id: 'proj3', title: 'Personal Blog Platform', description: 'Develop a simple blogging platform with CRUD functionality for posts.', difficulty: 'Hard', skills: ['Node.js', 'Express', 'Database (SQL/NoSQL)', 'Authentication'] },
+];
+
+const totalPoints = userSkills.reduce((sum, skill) => sum + skill.points, 0) + 500; // 500 mock project points
+
+const badges = [
+  { name: 'Bronze Coder', icon: Medal, color: 'text-yellow-700 dark:text-yellow-500', bgColor: 'bg-yellow-100 dark:bg-yellow-800/30', criteria: '1000+ Points', unlocked: totalPoints >= 1000, achievement: "Achieved Bronze Coder status with over 1000 points on NextStep!" },
+  { name: 'Silver Developer', icon: Shield, color: 'text-gray-600 dark:text-gray-400', bgColor: 'bg-gray-200 dark:bg-gray-700/30', criteria: '2500+ Points', unlocked: totalPoints >= 2500, achievement: "Proud Silver Developer on NextStep with 2500+ points!" },
+  { name: 'Gold Engineer', icon: Star, color: 'text-amber-500 dark:text-amber-400', bgColor: 'bg-amber-100 dark:bg-amber-700/30', criteria: '5000+ Points', unlocked: totalPoints >= 5000, achievement: "Honored to be a Gold Engineer on NextStep, surpassing 5000 points!" },
+  { name: 'Platinum Architect', icon: Gem, color: 'text-sky-600 dark:text-sky-400', bgColor: 'bg-sky-100 dark:bg-sky-700/30', criteria: '10000+ Points', unlocked: totalPoints >= 10000, achievement: "Reached Platinum Architect level on NextStep with over 10,000 points! #TopTier" },
 ];
 
 const SkillBar = ({ name, level, category }) => (
@@ -23,9 +35,9 @@ const SkillBar = ({ name, level, category }) => (
       <span className="text-sm font-medium text-foreground">{name} <span className="text-xs text-muted-foreground">({category})</span></span>
       <span className="text-sm font-medium text-primary">{level}%</span>
     </div>
-    <div className="w-full bg-muted rounded-full h-2.5">
+    <div className="w-full bg-muted rounded-full h-2.5 dark:bg-muted/50">
       <motion.div 
-        className="bg-gradient-to-r from-brand-blue-light to-brand-blue-default h-2.5 rounded-full" 
+        className="bg-gradient-to-r from-primary/70 to-primary h-2.5 rounded-full" 
         style={{ width: `${level}%` }}
         initial={{ width: 0 }}
         animate={{ width: `${level}%` }}
@@ -35,83 +47,136 @@ const SkillBar = ({ name, level, category }) => (
   </div>
 );
 
+const BadgeCard = ({ name, icon: Icon, color, bgColor, criteria, unlocked, achievement }) => {
+  const { toast } = useToast();
+  const handleShareBadge = () => {
+    const text = `I've unlocked the ${name} badge on NextStep! ${achievement} #NextStepBadge #CareerGoals`;
+    const linkedInUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.origin)}&summary=${encodeURIComponent(text)}`;
+    window.open(linkedInUrl, '_blank');
+     toast({
+      title: `Sharing ${name} Badge!`,
+      description: "Your LinkedIn share dialog should have opened. Flaunt that badge!",
+      className: "bg-primary text-primary-foreground"
+    });
+  };
+
+  return (
+  <motion.div 
+    className={`p-3 rounded-lg flex flex-col items-center text-center shadow-sm transition-all ${unlocked ? bgColor + ' hover:shadow-md' : 'bg-muted/30 dark:bg-muted/10 opacity-60'}`}
+    whileHover={unlocked ? { scale: 1.03 } : {}}
+  >
+    <Icon className={`h-10 w-10 mb-2 ${unlocked ? color : 'text-muted-foreground'}`} />
+    <h4 className={`font-semibold text-sm ${unlocked ? 'text-foreground' : 'text-muted-foreground'}`}>{name}</h4>
+    <p className={`text-xs ${unlocked ? 'text-muted-foreground' : 'text-muted-foreground/70'}`}>{criteria}</p>
+    {unlocked ? (
+      <Button variant="link" size="sm" className="mt-1 text-xs text-primary p-0 h-auto" onClick={handleShareBadge}>
+        <Linkedin className="h-3 w-3 mr-1" /> Share
+      </Button>
+    ) : (
+      <p className="text-xs text-destructive mt-1">Locked</p>
+    )}
+  </motion.div>
+  );
+};
 
 const SkillsPage = () => {
   return (
     <motion.div 
-      className="space-y-8"
+      className="space-y-6 sm:space-y-8"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <Card className="shadow-lg dark:bg-brand-gray-dark/50">
-        <CardHeader className="bg-gradient-to-r from-brand-blue-default to-brand-blue-dark p-6 rounded-t-lg">
-            <div className="flex items-center space-x-3">
-                <Award className="h-10 w-10 text-white" />
+      <Card className="shadow-lg dark:bg-card">
+        <CardHeader className="page-header-gradient p-4 sm:p-6 rounded-t-lg">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center space-y-2 sm:space-y-0 sm:space-x-3">
+                <Award className="h-8 w-8 sm:h-10 sm:w-10 text-primary-foreground" />
                 <div>
-                    <CardTitle className="text-3xl font-bold text-white">My Skills & Projects</CardTitle>
-                    <CardDescription className="text-blue-100 text-md">Track your expertise and completed projects.</CardDescription>
+                    <CardTitle className="page-header-title">My Skills & Badges</CardTitle>
+                    <CardDescription className="page-header-description">Track your expertise, earn points, and unlock badges.</CardDescription>
                 </div>
             </div>
         </CardHeader>
-        <CardContent className="p-6 grid md:grid-cols-2 gap-8">
-          {/* Skills Section */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 pb-2 border-b border-border text-foreground">My Skills</h2>
-            {userSkills.length > 0 ? (
-              userSkills.map(skill => <SkillBar key={skill.name} {...skill} />)
-            ) : (
-              <p className="text-muted-foreground">No skills added yet. Start learning to populate your skills!</p>
-            )}
-            <Button variant="outline" className="mt-4 w-full hover:bg-primary/10">
-              <BarChart3 className="mr-2 h-4 w-4" />
-              View Detailed Skill Report (Coming Soon)
-            </Button>
-          </section>
+        <CardContent className="p-4 sm:p-6">
+          <div className="grid md:grid-cols-3 gap-6 sm:gap-8">
+            <section className="md:col-span-2">
+              <h2 className="text-xl sm:text-2xl font-semibold mb-4 pb-2 border-b border-border text-foreground">My Skills</h2>
+              {userSkills.length > 0 ? (
+                userSkills.map(skill => <SkillBar key={skill.name} {...skill} />)
+              ) : (
+                <p className="text-muted-foreground">No skills added yet. Start learning to populate your skills!</p>
+              )}
+              <Button variant="outline" className="mt-4 w-full hover:bg-primary/10 dark:hover:bg-primary/20">
+                <BarChart3 className="mr-2 h-4 w-4" />
+                View Detailed Skill Report (Coming Soon)
+              </Button>
+            </section>
 
-          {/* Projects Section */}
-          <section>
-            <h2 className="text-2xl font-semibold mb-4 pb-2 border-b border-border text-foreground">My Projects</h2>
-            {userProjects.length > 0 ? (
-              <ul className="space-y-3">
-                {userProjects.map(project => (
-                  <li key={project.name} className="p-3 border rounded-md bg-secondary/30 dark:bg-secondary/10 flex justify-between items-center">
-                    <div>
-                      <h3 className="font-medium text-foreground">{project.name}</h3>
-                      <p className="text-xs text-muted-foreground">
-                        Status: {project.status} - Added: {project.date}
-                      </p>
-                    </div>
-                    <Button variant="link" size="sm" asChild>
-                      <a href={project.link} target="_blank" rel="noopener noreferrer">View Project</a>
-                    </Button>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="text-muted-foreground">No projects submitted yet.</p>
-            )}
-            <Button className="mt-4 w-full bg-brand-blue-default hover:bg-brand-blue-dark text-primary-foreground">
-              <Upload className="mr-2 h-4 w-4" />
-              Submit New Project
-            </Button>
-            <p className="text-xs text-center mt-2 text-muted-foreground">Feature to submit projects coming soon.</p>
-          </section>
+            <section>
+              <h2 className="text-xl sm:text-2xl font-semibold mb-4 pb-2 border-b border-border text-foreground">Achievements</h2>
+              <div className="p-4 bg-muted/40 dark:bg-muted/20 rounded-lg mb-4 text-center shadow-inner">
+                <p className="text-sm text-muted-foreground">Total Skill Points</p>
+                <p className="text-3xl font-bold text-primary">{totalPoints}</p>
+              </div>
+              <h3 className="text-lg font-medium mb-3 text-foreground">Badges Unlocked</h3>
+              <div className="grid grid-cols-2 gap-3">
+                {badges.map(badge => <BadgeCard key={badge.name} {...badge} />)}
+              </div>
+              <p className="text-xs text-muted-foreground mt-4 text-center">Complete learning modules and projects to earn more points and unlock new badges!</p>
+            </section>
+          </div>
         </CardContent>
       </Card>
 
-      <Card className="dark:bg-brand-gray-dark/50">
+      <Card className="dark:bg-card shadow-lg">
         <CardHeader>
-          <CardTitle className="text-xl text-brand-blue-default dark:text-brand-blue-light">Skill Points & Badges</CardTitle>
-          <CardDescription>Earn points and badges as you complete modules and projects.</CardDescription>
+          <div className="flex items-center space-x-3">
+            <FolderKanban className="h-7 w-7 text-primary" />
+            <div>
+              <CardTitle className="text-xl sm:text-2xl text-primary">Hands-on Projects Practice</CardTitle>
+              <CardDescription>Apply your skills by building these suggested projects.</CardDescription>
+            </div>
+          </div>
         </CardHeader>
-        <CardContent className="text-center">
-          <img  class="mx-auto h-24 w-24 text-muted-foreground mb-3" alt="Stylized trophy icon indicating achievements or points" src="https://images.unsplash.com/photo-1561580726-1bd7aed04eb0" />
-          <p className="text-lg font-semibold">Total Skill Points: <span className="text-primary">1250</span></p>
-          <p className="text-muted-foreground">Badges Earned: <span className="text-primary">3</span> (e.g., React Novice, JS Fundamentals)</p>
-          <p className="mt-4 text-sm text-muted-foreground">Gamification features are under development. Stay tuned for more ways to showcase your achievements!</p>
+        <CardContent className="p-4 sm:p-6">
+          {suggestedProjects.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              {suggestedProjects.map(project => (
+                <motion.div
+                  key={project.id}
+                  whileHover={{ y: -5, boxShadow: "0px 8px 15px rgba(0,0,0,0.08)" }}
+                  className="h-full"
+                >
+                <Card className="flex flex-col h-full dark:bg-muted/20 hover:border-primary/50 transition-colors">
+                  <CardHeader>
+                    <CardTitle className="text-lg text-foreground">{project.title}</CardTitle>
+                    <CardDescription className="text-xs">Difficulty: {project.difficulty}</CardDescription>
+                  </CardHeader>
+                  <CardContent className="flex-grow">
+                    <p className="text-sm text-muted-foreground mb-2">{project.description}</p>
+                    <div className="flex flex-wrap gap-1">
+                      {project.skills.map(skill => (
+                        <span key={skill} className="text-xs bg-secondary text-secondary-foreground px-2 py-0.5 rounded-full">{skill}</span>
+                      ))}
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button variant="default" size="sm" className="w-full">
+                      <Zap className="mr-2 h-4 w-4" /> Start Project
+                    </Button>
+                  </CardFooter>
+                </Card>
+                </motion.div>
+              ))}
+            </div>
+          ) : (
+             <p className="text-muted-foreground text-center py-5">More hands-on project suggestions coming soon!</p>
+          )}
         </CardContent>
       </Card>
+      <p className="text-xs text-center text-muted-foreground">
+        Remember: The best way to learn is by doing. Tackle these projects to solidify your knowledge.
+      </p>
     </motion.div>
   );
 };
